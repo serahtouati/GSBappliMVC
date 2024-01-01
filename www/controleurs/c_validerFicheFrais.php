@@ -45,6 +45,7 @@ switch ($action) {
 
             header("Refresh: 2;URL=index.php?uc=validerFicheFrais&action=selectionnerUtilisateur");
         } else {
+            $nbJustificatifs= $pdo->getNbjustificatifs($idVisiteur, $mois);
             include 'vues/v_validerFicheFrais.php';
         }
 
@@ -65,6 +66,7 @@ switch ($action) {
         }
         ajouterErreur('Les frais forfait ont bien été mis à jour.');
         include 'vues/v_erreurs.php';
+       $nbJustificatifs= $pdo->getNbjustificatifs($idVisiteur, $mois);
         include 'vues/v_validerFicheFrais.php';
         break;
 
@@ -94,6 +96,7 @@ switch ($action) {
             ajouterErreur('Le frais hors forfait a bien été mis à jour.');
             include 'vues/v_erreurs.php';
 
+           $nbJustificatifs= $pdo->getNbjustificatifs($idVisiteur, $mois);
             include 'vues/v_validerFicheFrais.php';
         } elseif (isset($_POST['supprimerFHF'])) {
 
@@ -105,15 +108,17 @@ switch ($action) {
             $lesMois = getLesDouzeDerniersMois($mois);
             $moisASelectionner = $leMois;
             $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
-            
+
 
 
             $unIdFrais = filter_input(INPUT_POST, 'unIdFrais', FILTER_SANITIZE_STRING);
             $pdo->supprimerFraisHorsForfait($unIdFrais);
-$lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
+            $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
             ajouterErreur('Le frais hors forfait a bien été supprimé.');
             include 'vues/v_erreurs.php';
+           $nbJustificatifs= $pdo->getNbjustificatifs($idVisiteur, $mois);
             include 'vues/v_validerFicheFrais.php';
+            
         } elseif (isset($_POST['reporterFHF'])) {
             // echo "coucou";
             $idVisiteur = filter_input(INPUT_POST, 'lstVisiteurs', FILTER_SANITIZE_STRING);
@@ -124,7 +129,7 @@ $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
             $lesMois = getLesDouzeDerniersMois($mois);
             $moisASelectionner = $leMois;
             $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
-            
+
 
             $idVisiteur = filter_input(INPUT_POST, 'lstVisiteurs', FILTER_SANITIZE_STRING);
             $leMois = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_STRING);
@@ -136,14 +141,17 @@ $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
             $libelle2 = "REFUSER " . $libelle;
             $pdo->majFraisHorsForfait($idVisiteur, $leMois, $libelle2, $date, $montant, $unIdFrais);
             $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
-           
-           $moisSuivant= getMoisSuivant($leMois);
-            $pdo->creeNouveauFraisHorsForfait($idVisiteur, $moisSuivant,$libelle, $date, $montant, $unIdFrais);
+
+            $moisSuivant = getMoisSuivant($leMois);
+            $pdo->creeNouveauFraisHorsForfait($idVisiteur, $moisSuivant, $libelle, $date, $montant, $unIdFrais);
 
 
             ajouterErreur('Le frais hors forfait a bien été repporté.');
             include 'vues/v_erreurs.php';
+            
+           $nbJustificatifs= $pdo->getNbjustificatifs($idVisiteur, $mois);
             include 'vues/v_validerFicheFrais.php';
+            
         }
 
         break;

@@ -15,7 +15,6 @@
  * @link      http://www.reseaucerta.org Contexte « Laboratoire GSB »
  */
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
-$mois = getMois(date('d/m/Y'));
 $idVisiteur = filter_input(INPUT_POST, 'lstVisiteurs', FILTER_SANITIZE_STRING);
 $leMois = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_STRING);
 $date = filter_input(INPUT_POST, 'date', FILTER_SANITIZE_STRING);
@@ -24,12 +23,12 @@ $montant = filter_input(INPUT_POST, 'montant', FILTER_VALIDATE_FLOAT);
 $unIdFrais = filter_input(INPUT_POST, 'unIdFrais', FILTER_SANITIZE_STRING);
 $lesFrais = filter_input(INPUT_POST, 'lesFrais', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
 $lesVisiteurs = $pdo->getNomVisiteur();
-$visiteurASelectionner = $idVisiteur;
-$lesMois = getLesDouzeDerniersMois($mois);
-$moisASelectionner = $leMois;
 $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
 $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
-$nbJustificatifs = $pdo->getNbjustificatifs($idVisiteur, $leMois);
+$visiteurASelectionner = $idVisiteur;
+$moisASelectionner = $leMois;
+$mois = getMois(date('d/m/Y'));
+$lesMois = getLesDouzeDerniersMois($mois);
 
 switch ($action) {
     case 'selectionnerUtilisateur':
@@ -44,9 +43,11 @@ switch ($action) {
             include 'vues/v_erreurs.php';
             header("Refresh: 2;URL=index.php?uc=validerFicheFrais&action=selectionnerUtilisateur");
         } else {
+            $nbJustificatifs = $pdo->getNbjustificatifs($idVisiteur, $leMois);
             include 'vues/v_validerFicheFrais.php';
         }
         break;
+
     case 'majForfait':
         if (lesQteFraisValides($lesFrais)) {
             $pdo->majFraisForfait($idVisiteur, $leMois, $lesFrais);
@@ -54,13 +55,16 @@ switch ($action) {
         }
         ajouterErreur('Les frais forfait ont bien été mis à jour.');
         include 'vues/v_erreurs.php';
+        $nbJustificatifs = $pdo->getNbjustificatifs($idVisiteur, $leMois);
         include 'vues/v_validerFicheFrais.php';
         break;
+
     case 'majHorsForfait':
+        $nbJustificatifs = $pdo->getNbjustificatifs($idVisiteur, $leMois);
+
         if (isset($_POST['corrigerFHF'])) {
             $pdo->majFraisHorsForfait($idVisiteur, $leMois, $libelle, $date, $montant, $unIdFrais);
             $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
-
             ajouterErreur('Le frais hors forfait a bien été mis à jour.');
             include 'vues/v_erreurs.php';
             include 'vues/v_validerFicheFrais.php';
@@ -80,6 +84,5 @@ switch ($action) {
             include 'vues/v_erreurs.php';
             include 'vues/v_validerFicheFrais.php';
         }
-        
         break;
 }

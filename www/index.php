@@ -48,6 +48,10 @@ switch ($uc) {
      case 'validerFicheFrais':
         include 'controleurs/c_validerFicheFrais.php';
         break;
+    
+     case 'majFraisForfait':
+        include 'controleurs/c_validerFicheFrais.php';
+        break;
      case 'suivrePaiement':
         include 'controleurs/c_suivrePaiement.php';
         break;

@@ -80,5 +80,6 @@ switch ($action) {
             include 'vues/v_erreurs.php';
             include 'vues/v_validerFicheFrais.php';
         }
+        
         break;
 }

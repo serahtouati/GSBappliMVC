@@ -15,13 +15,9 @@
  */
 ?>
 <h2> Valider la fiche de frais</h2>
-<form method="post" 
-      action="index.php?uc=validerFicheFrais&action=majForfait" 
-      role="form">
     <div class="row">
         <div class="col-md-4">
             <label for="lstVisiteurs" accesskey="n">Sélectionner un visiteur :</label>
-
             <div class="form-group">
                 <label for="lstVisiteurs" accesskey="n"></label>
                 <select id="lstVisiteurs" name="lstVisiteurs" class="form-control">
@@ -181,15 +177,22 @@
             ?>
         </table>
     </div>
-<div class="col-md-4">
-   <label for="nbJustificatif"> Nombre de justificatifs </label>
-                        <input type="text" id="nbJustificatif" 
-                               name="nbjustificatifs"
-                               size="2" maxlength="2" 
-                               value="<?php echo $nbJustificatifs ?>" >
-                    
-</div>
-    <br>
-        <button class="btn btn-success" type="submit">Valider</button>
+    <form method="post"  action="index.php?uc=validerFicheFrais&action=validerMontant"
+          role="form">
+        <div class="col-md-4">
+            <label for="nbJustificatif"> Nombre de justificatifs </label>
+            <input type="text" id="nbJustificatif" 
+                   name="nbjustificatifs"
+                   size="2" maxlength="2" 
+                   value="<?php echo $nbJustificatifs ?>" >
 
-    </div>
+            <input name="validerMontant" type="submit" value="Valider" class="btn btn-success"/>  
+            <input name="lstMois" type="hidden" id="lstMois" class="form-control" value="<?php echo $moisASelectionner ?>">
+            <input name="lstVisiteurs" type="hidden" id="lstVisiteurs" class="form-control" value="<?php echo $visiteurASelectionner ?>">
+        </div>
+    </form>
+
+
+
+</div>
+-

@@ -47,14 +47,14 @@ switch ($uc) {
         break;
      case 'validerFicheFrais':
         include 'controleurs/c_validerFicheFrais.php';
-        break;
-    
+        break; 
      case 'majFraisForfait':
         include 'controleurs/c_validerFicheFrais.php';
         break;
-     case 'suivrePaiement':
+      case 'suivrePaiement':
         include 'controleurs/c_suivrePaiement.php';
         break;
+
 }
 require 'vues/v_pied.php';
 

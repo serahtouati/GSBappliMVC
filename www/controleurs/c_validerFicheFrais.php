@@ -85,4 +85,26 @@ switch ($action) {
             include 'vues/v_validerFicheFrais.php';
         }
         break;
+
+    case 'validerMontant';
+
+
+        $totalFF = $pdo->calculerFF($idVisiteur, $leMois);
+        $totalFF2 = $totalFF [0][0];
+        //var_dump($totalFF2);
+
+        $totalFHF = $pdo->calculerFHF($idVisiteur, $leMois);
+        $totalFHF2 = $totalFHF [0][0];
+        // var_dump($totalFHF2);
+
+        $total = $totalFF2 + $totalFHF2;
+        //var_dump($total);
+        $montantValide = $pdo->totalValide($idVisiteur, $leMois, $total);
+        $pdo->majEtatFicheFrais($idVisiteur, $leMois, 'VA');
+
+        ajouterErreur('Vos frais forfaits et hors forfaits ont bien été validés');
+        header("Refresh: 2;URL=index.php?uc=validerFicheFrais&action=selectionnerUtilisateur");
+        include 'vues/v_erreurs.php';
+
+        break;
 }

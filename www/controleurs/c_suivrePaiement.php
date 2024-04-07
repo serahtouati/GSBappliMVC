@@ -17,6 +17,7 @@ switch ($action) {
         $lesMois = $pdo->getLesMoisDisponiblesVA();
         include 'vues/v_visiteurVA.php';
         break;
+    
 
     case 'valider':
         $leMois = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_STRING);

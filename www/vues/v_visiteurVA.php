@@ -9,7 +9,7 @@
 <h2> Suivre le paiement des fiches de frais</h2>
    <div class="row">
         <div class="col-md-4">
-              <form method="post"  action="index.php?uc=suivrePaiement&action=valider"
+            <form method="post"  action="index.php?uc=suivrePaiement&action=valider">
             <label for="lstVisiteurs" accesskey="n">Sélectionner un visiteur :</label>
             <div class="form-group">
                 <label for="lstVisiteurs" accesskey="n"></label>
@@ -37,6 +37,7 @@
 
         </div>
         <div class="col-md-4">
+              
             <label for="lstMois" accesskey="n">Sélectionner un mois :</label>
             <div class="form-group">
                 <label for="lstMois" accesskey="n"></label>
@@ -66,7 +67,6 @@
     </div>
 
                                <input id="valider" name="valider" type="submit" value="Valider" class="btn btn-success"/>  
-      <input id="effacer" name="effacer" type="reset"value="Effacer"  class="btn btn-danger"/>  
 </form>
             
             

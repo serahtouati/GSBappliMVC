@@ -23,3 +23,5 @@ if ($estConnecteVisiteur) {
 } else {
      include 'vues/v_connexion.php';
 }
+
+//$pdo->hacherMdp();

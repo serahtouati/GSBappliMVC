@@ -617,5 +617,45 @@ class PdoGsb {
         $requetePrepare->bindParam(':unTotal', $total, PDO::PARAM_INT);
         $requetePrepare->execute();
     }
+    
+    public function modifierMdpVisiteur($login, $mdp) {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+                'UPDATE visiteur '
+                . 'SET mdp=:unMdp  '
+                . 'WHERE visiteur.login = :unLogin'
+        );
+        $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMdp', $mdp, PDO::PARAM_STR);
+   
+        $requetePrepare->execute();
+    }
+    
+        public function modifierMdpComptable($login, $mdp) {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+                'UPDATE comptable '
+                . 'SET mdp=:unMdp  '
+                . 'WHERE comptable.login = :unLogin '
+        );
+        $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMdp', $mdp, PDO::PARAM_STR);
+   
+        $requetePrepare->execute();
+    }
+    
+    /*
+            public function hacherMdp() {
+                $requetePrepare = PdoGSB::$monPdo->prepare(
+                'SELECT mdp '
+                . 'FROM visiteur '
+                             );
+                 $requetePrepare->execute();
+                             $motsDePasse = $requetePrepare->fetchAll(PDO::FETCH_COLUMN) ;
+                foreach ($motsDePasse as $unMdp) {
+                             $hash = password_hash($unMdp, PASSWORD_DEFAULT);
+          
+            }
+     */
 
+  
 }
+

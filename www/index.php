@@ -54,6 +54,9 @@ switch ($uc) {
       case 'suivrePaiement':
         include 'controleurs/c_suivrePaiement.php';
         break;
+      case 'modifierMdp':
+        include 'controleurs/c_modifierMdp.php';
+        break;
 
 }
 require 'vues/v_pied.php';

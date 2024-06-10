@@ -61,6 +61,12 @@
                                     Afficher mes fiches de frais
                                 </a>
                             </li>
+                            <li <?php if ($uc == 'modifierMdp') { ?>class="active"<?php } ?>>
+                                <a  href="index.php?uc=modifierMdp&action=modificationMdp">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                    Modifier mon mot de passe
+                                </a>
+                            </li>
                             <li 
                             <?php if ($uc == 'deconnexion') { ?>class="active"<?php } ?>>
                                 <a href="index.php?uc=deconnexion&action=demandeDeconnexion">
@@ -104,6 +110,12 @@
                                 <a style="color: coral" href="index.php?uc=suivrePaiement&action=selectionnerUtilisateur">
                                     <span class="glyphicon glyphicon-euro"></span>
                                     Suivre le paiement des fiches de frais
+                                </a>
+                            </li>
+                                  <li <?php if ($uc == 'modifierMdp') { ?>class="active"<?php } ?>>
+                                <a style="color: coral" href="index.php?uc=modifierMdp&action=modificationMdp">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                    Modifier mon mot de passe
                                 </a>
                             </li>
                             <li
